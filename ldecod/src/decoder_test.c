@@ -224,8 +224,10 @@ static int WriteOneFrame(DecodedPicList *pDecPic, int hFileOutput0, int hFileOut
  */
 int main(int argc, char **argv)
 {
-	time_t before_time, after_time; 
-	before_time = time(NULL);
+	//time_t before_time, after_time; 
+	//before_time = time(NULL);
+	struct timeval start, end;
+	gettimeofday( &start, NULL );
 	
   int iRet;
   DecodedPicList *pDecPicList;
@@ -336,9 +338,12 @@ int main(int argc, char **argv)
 #endif
 
 
-	after_time = time(NULL);	
+	//after_time = time(NULL);	
 	//printf("run time: %f seconds\n",difftime(after_time,before_time));
-	printf("run time: %ld \n",after_time-before_time);
+
+	gettimeofday( &end, NULL );
+	long int time_us = 1000000 * ( end.tv_sec - start.tv_sec ) + end.tv_usec - start.tv_usec;
+	printf("run time: %ld us\n",time_us);
   return 0;
 }
 
